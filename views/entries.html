@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Entry Review</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Time Entries for Today</h1>
+    <form method="POST" action="/submit">
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{entries}}
+            </tbody>
+        </table>
+		{{projects}}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
