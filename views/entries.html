@@ -3,26 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Entry Review</title>
+    <title>Zeiterfassung überprüfen</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Time Entries for Today</h1>
+    <h1>Zeiterfassung überprüfen</h1>
     <form method="POST" action="/submit">
         <table>
             <thead>
                 <tr>
-                    <th>Description</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
+                    <th>Beschreibung</th>
+                    <th>Start</th>
+                    <th>Ende</th>
                 </tr>
             </thead>
             <tbody>
                 {{entries}}
             </tbody>
         </table>
-		{{projects}}
-        <button type="submit">Submit</button>
+		<label>Projekt
+			<select name="project">
+				{{projects}}
+			</select>
+		</label>
+        <button type="submit">Abschicken</button>
     </form>
 </body>
 </html>

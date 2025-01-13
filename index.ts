@@ -2,7 +2,7 @@ import { serve } from 'bun'
 import { readFileSync } from 'fs'
 import path from 'path'
 import { type TimeularEntry, fetchTimeularEntries } from './timeular'
-import { fetchVertecProjects } from './vertec'
+import { type VertecProject, fetchVertecProjects } from './vertec'
 
 serve({
     fetch: async (req) => {
@@ -11,11 +11,11 @@ serve({
         if (url.pathname === '/' && req.method === 'GET') {
             try {
                 const entries = await fetchTimeularEntries();
-				const projects = await fetchVertecProjects();
+				const projects = await fetchVertecProjects() as VertecProject[];
                 const template = readFileSync(path.resolve('views/entries.html'), 'utf-8');
                 const html = template
 					.replace('{{entries}}', renderEntries(entries))
-					.replace('{{projects}}', renderProjects(JSON.stringify(projects)));
+					.replace('{{projects}}', renderProjects(projects));
                 return new Response(html, { headers: { 'Content-Type': 'text/html' } });
             } catch (error) {
                 console.error(error);
@@ -54,6 +54,7 @@ function renderEntries(entries: TimeularEntry[]): string {
     `).join('');
 }
 
-function renderProjects(projects: string): string {
-	return projects;
+function renderProjects(projects: VertecProject[]): string {
+	return projects.map((project) => `
+	    <option value="${project.objid}">${project.code}</option>`).join('');
 }
